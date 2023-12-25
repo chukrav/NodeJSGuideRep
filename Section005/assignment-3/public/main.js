@@ -1,0 +1,1 @@
+alert('In main public!');
