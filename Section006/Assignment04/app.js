@@ -1,15 +1,22 @@
-const express = require('express');
+const path = require('path');
+
+const express = require("express");
+const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use('/add', (req,res,next) => {
-    console.log('add-product');
-    res.send('<h1>The Add product Page</h1>');
+app.use(bodyParser.urlencoded({extended: false}));
+
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+
+app.use(shopRoutes);
+app.use(adminRoutes);
+
+app.use((req,res,next) => {
+    // res.status(404).send('<h1>Page not found</h1>');
+    res.status(404).sendFile(path.join(__dirname,'views','404.html'));
 });
 
-app.use('/', (req,res,next) => {
-    console.log('hello-express');
-    res.send('<h1>Hello from express!</h1>');
-});
 
 app.listen(3000);
