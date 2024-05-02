@@ -26,13 +26,13 @@ module.exports = class Product {
     this.price = price;
   }
 
-  save() {    
-    
-    getProductsFromFile(products => {
+  save() {        
+    getProductsFromFile(products => {      
       if (this.id) {
         const existingProductIndex = products.findById(
           (prod) => prod.id === this.id
         );
+        console.log('existingProductIndex: ' + typeof(existingProductIndex));
         const updatedProducts = [...products];
         updatedProducts[existingProductIndex] = this;
         fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
