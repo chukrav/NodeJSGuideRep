@@ -38,7 +38,22 @@ exports.getEditProduct = (req, res, next) => {
 };
 
 exports.postEditProduct = (req,res,next) => {
-  const prodId = req.body.prodId;
+  const prodId = req.body.productId;
+  // console.log('postEditProduct: '+ prodId);
+  const updatedTitle = req.body.title;
+  const updatedPrice = req.body.price;
+  const updatedImageUrl = req.body.imageUrl;
+  const updatedDesc = req.body.description;
+  const updatedProduct = new Product(
+    prodId,
+    updatedTitle,
+    updatedImageUrl,
+    updatedDesc,
+    updatedPrice
+  );
+  // console.log('admin-contr updated: '+updatedProduct.id+' '+updatedProduct.title);
+  updatedProduct.save();
+  res.redirect('/admin/products');
 };
 
 exports.getProducts = (req, res, next) => {
@@ -49,4 +64,10 @@ exports.getProducts = (req, res, next) => {
       path: '/admin/products'
     });
   });
+};
+
+exports.postDeleteProduct = (req, res, next) => {
+  const prodId = req.body.productId;
+  Product.deleteById(prodId);
+  res.redirect('/admin/products');
 };
