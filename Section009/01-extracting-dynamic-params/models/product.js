@@ -36,6 +36,7 @@ module.exports = class Product {
         const existingProductIndex = products.findIndex(
           prod => prod.id.trim() === this.id.trim()           
         );
+        console.log('existingProductIndex: ' + typeof(existingProductIndex));
         const updatedProducts = [...products];
         // console.log('In product save!' + existingProductIndex);
         updatedProducts[existingProductIndex] = this;
