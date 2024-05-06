@@ -3,4 +3,14 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-        <%- include('../includes/end.ejs') %>
+            <main>
+                <% if(products.label> 0) { %>
+                    <ul>
+                        <% products.forEach(product => { %>
+                            
+                    </ul>
+                <% } else { %>
+                    <h1>No products in the cart. </h1>
+                <% } %>
+            </main>
+            <%- include('../includes/end.ejs') %>
