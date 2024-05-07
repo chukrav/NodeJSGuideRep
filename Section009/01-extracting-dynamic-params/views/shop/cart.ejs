@@ -6,8 +6,12 @@
             <main>
                 <% if(products.label> 0) { %>
                     <ul>
-                        <% products.forEach(product => { %>
-                            
+                        <% products.forEach(p => { %>
+                            <li>
+                                <%= p.productData.title %> ( <%= p.qty %>  ) 
+                            </li>
+                        <% }) %>
+
                     </ul>
                 <% } else { %>
                     <h1>No products in the cart. </h1>

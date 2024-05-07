@@ -38,8 +38,9 @@ exports.getCart = (req, res, next) => {
   Cart.getCart((cart) => {
     Product.fetchAll((products) => {
       const cartProducts = [];
+      console.log(products);
       for(product of products){
-        const cartProductData = cart.products.find(prod => prod.id === product.id);
+        const cartProductData = cart.products.find(prod => prod.id.trim() === product.id.trim());
         if(cartProductData){
           cartProducts.push({productdata: product, qty: cartProductData.qty} );
         }
