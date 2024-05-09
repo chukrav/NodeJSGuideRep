@@ -4,11 +4,11 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
             <main>
-                <% if(products.label> 0) { %>
+                <% if(products.length > 0) { %> console.log(p);
                     <ul>
                         <% products.forEach(p => { %>
                             <li>
-                                <%= p.productData.title %> ( <%= p.qty %>  ) 
+                                <p><%= p.productdata.title %> ( <%= p.qty %> ) </p>
                             </li>
                         <% }) %>
 
