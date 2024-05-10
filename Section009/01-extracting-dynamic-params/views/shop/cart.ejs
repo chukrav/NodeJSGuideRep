@@ -3,7 +3,7 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-            <main>
+        <main>
                 <% if(products.length > 0) { %> console.log(p);
                     <ul>
                         <% products.forEach(p => { %>
@@ -16,5 +16,5 @@
                 <% } else { %>
                     <h1>No products in the cart. </h1>
                 <% } %>
-            </main>
-            <%- include('../includes/end.ejs') %>
+        </main>
+        <%- include('../includes/end.ejs') %>
