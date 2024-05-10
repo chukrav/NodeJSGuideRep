@@ -41,15 +41,20 @@ const p = path.join(
     }
 
     static deleteProdyct(id, productPrice) {
+        id = id.trim();
       fs.readFile(p, (err, fileContent) => {
         if (err) {
           return;
         }
         const updatedCart = { ...JSON.parse(fileContent) };
         const product = updatedCart.products.find(
-          (prod) => prod.id.trim() === id.trim()
+          prod => prod.id.trim() === id
         );
+        if (!product) {
+            return;
+        }
         const productQty = product.qty;
+        // console.log(product);
         updatedCart.products = updatedCart.products.filter(
           (prod) => prod.id.trim() !== id
         );
@@ -57,9 +62,10 @@ const p = path.join(
           "" +
           (
             parseFloat(updatedCart.totalPrice) -
-            productPrice * productQty
+            parseFloat(productPrice)*productQty
           ).toFixed(2);
-        fs.writeFile(p, JSON.stringify(cart), (err) => {
+        //   console.log(updatedCart);
+        fs.writeFile(p, JSON.stringify(updatedCart), (err) => {
           console.log(err);
         });
       });
