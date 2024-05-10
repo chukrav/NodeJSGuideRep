@@ -40,11 +40,14 @@ exports.getCart = (req, res, next) => {
       const cartProducts = [];
       // console.log(products);
       for(product of products){
-        const cartProductData = cart.products.find(prod => prod.id.trim() === product.id.trim());
+        const cartProductData = cart.products.find(
+          prod => prod.id.trim() === product.id.trim()
+        );
         if(cartProductData){
           cartProducts.push({productdata: product, qty: cartProductData.qty} );
         }
       }
+      // console.log(cartProducts);
       res.render("shop/cart", {
         path: "/cart",
         pageTitle: "Your Cart",

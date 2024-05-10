@@ -67,7 +67,7 @@ const p = path.join(
 
     static getCart(cb){
         fs.readFile(p,(err,fileContent) => {
-            const cart = JSON.stringify(fileContent);
+            const cart = JSON.parse(fileContent);
             if (err) {
                 cb(null);
             } else {
