@@ -1,0 +1,4 @@
+MySQL root pswd: nodeStudent
+set 10 May 2024
+macOS 12, MySQL v: 8.031
+mysql-workbench-community-8.0.31-macos-x86_64.dmg
