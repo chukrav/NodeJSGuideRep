@@ -5,7 +5,7 @@ const MongoClient = mongodb.MongoClient;
 let _db;
 
 const mongoConnect = (callback) => {
-  const connectURL = 'mongodb+srv://node-complete:nodeStudent@mflix.ryh22.mongodb.net/shop?retryWrites=true&w=majority&appName=mflix';
+  const connectURL = 'mongodb+srv://node-complete:<password>@mflix.ryh22.mongodb.net/shop?retryWrites=true&w=majority&appName=mflix';
   MongoClient.connect(connectURL)
     .then((client) => {
       console.log("Connected!");
