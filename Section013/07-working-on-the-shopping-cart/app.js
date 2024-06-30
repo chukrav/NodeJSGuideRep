@@ -19,35 +19,36 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  User.findById("667ec96aa949020a0442e159")
-    .then((user) => {
+  User.findById('5bab316ce0a7c75f783cb8a8')
+    .then(user => {
       req.user = user;
       next();
     })
-    .catch((err) => console.log(err));
-});   
+    .catch(err => console.log(err));
+});
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
+
 app.use(errorController.get404);
 
 mongoose
   .connect(
-    'mongodb+srv://node-complete:nodeStudent@mflix.ryh22.mongodb.net/shop?retryWrites=true&w=majority&appName=mflix'
+    'mongodb+srv://maximilian:9u4biljMQc4jjqbe@cluster0-ntrwp.mongodb.net/shop?retryWrites=true'
   )
   .then(result => {
     User.findOne().then(user => {
-      if(!user){
+      if (!user) {
         const user = new User({
-          name: 'Alexei',
-          email: 'alexei@test.com',
+          name: 'Max',
+          email: 'max@test.com',
           cart: {
             items: []
           }
         });
         user.save();
       }
-    });    
+    });
     app.listen(3000);
   })
   .catch(err => {
