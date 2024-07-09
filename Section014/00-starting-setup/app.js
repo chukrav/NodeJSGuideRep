@@ -4,11 +4,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
+const MONGODB_URI = 'mongodb+srv://node-complete:nodeStudent@mflix.ryh22.mongodb.net/shop?retryWrites=true&w=majority&appName=mflix';
+
 const app = express();
+const store = new MongoDBStore({ uri: MONGODB_URI, collection: "sessions" });
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -16,11 +20,17 @@ app.set('views', 'views');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
+const { request } = require('http');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
-  session({ secret: "my secret", resave: false, saveUninitialized: false })
+  session({
+    secret: "my secret",
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+  })
 );
 
 app.use((req, res, next) => {
@@ -40,7 +50,7 @@ app.use(errorController.get404);
 
 mongoose
   .connect(
-    'mongodb+srv://node-complete:nodeStudent@mflix.ryh22.mongodb.net/shop?retryWrites=true&w=majority&appName=mflix'
+    MONGODB_URI
   )
   .then(result => {
     User.findOne().then(user => {
