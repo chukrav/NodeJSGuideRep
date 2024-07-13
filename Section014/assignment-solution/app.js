@@ -9,10 +9,15 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URI = 'mongodb+srv://node-complete:nodeStudent@mflix.ryh22.mongodb.net/shop?retryWrites=true&w=majority&appName=mflix';
+// const MONGODB_URI =
+//   'mongodb+srv://maximilian:9u4biljMQc4jjqbe@cluster0-ntrwp.mongodb.net/shop';
+  const MONGODB_URI = 'mongodb+srv://node-complete:nodeStudent@mflix.ryh22.mongodb.net/shop?retryWrites=true&w=majority&appName=mflix'; 
 
 const app = express();
-const store = new MongoDBStore({ uri: MONGODB_URI, collection: "sessions" });
+const store = new MongoDBStore({
+  uri: MONGODB_URI,
+  collection: 'sessions'
+});
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -20,28 +25,17 @@ app.set('views', 'views');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
-const { request } = require('http');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
   session({
-    secret: "my secret",
+    secret: 'my secret',
     resave: false,
     saveUninitialized: false,
     store: store
   })
 );
-
-app.use((req, res, next) => {
-  // User.findById('667ec96aa949020a0442e159')
-  User.findById(req.session.user._id)
-    .then(user => {
-      req.user = user;
-      next();
-    })  
-    .catch(err => console.log(err));
-});
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
@@ -50,15 +44,13 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-  .connect(
-    MONGODB_URI
-  )
+  .connect(MONGODB_URI)
   .then(result => {
     User.findOne().then(user => {
       if (!user) {
         const user = new User({
-          name: 'Alexei',
-          email: 'alexei@test.com',
+          name: 'Max',
+          email: 'max@test.com',
           cart: {
             items: []
           }
