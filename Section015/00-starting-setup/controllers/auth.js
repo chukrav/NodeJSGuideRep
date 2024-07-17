@@ -53,8 +53,6 @@ exports.postLogin = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
-exports.postSignup = (req, res, next) => {};
-
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
     console.log(err);
