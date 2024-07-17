@@ -1,4 +1,8 @@
+const bcrypt = require('bcryptjs');
+// npm install --save bcryptjs <- install to encrypt the password!
+
 const User = require('../models/user');
+
 
 exports.getLogin = (req, res, next) => {
   res.render('auth/login', {
@@ -25,16 +29,19 @@ exports.postSignup = (req,res,next) => {
       if(userDoc){
         return res.redirect('/signup');
       }
-      const user = new User({
-        email: email,
-        password: password,
-        cart: {items: []},
-      });
-      return user.save();
-    })
-    .then(result => {
-      res.redirect('/login');
-    })
+      return bcrypt.hash(password,12)
+      .then(hashedPassword => {
+        const user = new User({
+          email: email,
+          password: hashedPassword,
+          cart: {items: []},
+        });
+        return user.save();
+      })
+      .then(result => {
+        res.redirect('/login');
+      });      
+    })    
     .catch((err) => {
       console.log(err);
     });
