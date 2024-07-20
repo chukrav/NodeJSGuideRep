@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 // npm install --save bcryptjs <- install to encrypt the password!
+// npm install --save csurf    <- makes token for additional check for every page I sended
 
 const User = require('../models/user');
 
@@ -48,16 +49,33 @@ exports.postSignup = (req,res,next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-  User.findById('667ec96aa949020a0442e159')
-    .then(user => {
-      req.session.isLoggedIn = true;
-      req.session.user = user;
-      req.session.save(err => {
-        console.log(err);
-        res.redirect('/');
-      });
+  const email = req.body.email;
+  const password = req.body.password;
+  // User.findById('667ec96aa949020a0442e159')
+  User.findOne({ email: email })
+    .then((user) => {
+      if (!user) {
+        return res.redirect("/login");
+      }
+      bcrypt
+        .compare(password, user.password)
+        .then((doMatch) => {
+          if (doMatch) {
+            req.session.isLoggedIn = true;
+            req.session.user = user;
+            return req.session.save((err) => {
+              console.log(err);
+              return res.redirect("/");
+            });            
+          }
+          res.redirect("/login");
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect("/login");
+        });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
 exports.postLogout = (req, res, next) => {
