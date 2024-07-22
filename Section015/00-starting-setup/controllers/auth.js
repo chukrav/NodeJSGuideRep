@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 // npm install --save bcryptjs <- install to encrypt the password!
-// npm install --save csurf    <- makes token for additional check for every page I sended
+// npm install --save csurf    <- makes token for additional check for every page I sended (depricated !!!)
+// npm install --save connect-flash    <- Good for error flash messages!
 
 const User = require('../models/user');
 
