@@ -1,0 +1,23 @@
+MySQL root pswd: nodeStudent
+set 10 May 2024
+macOS 12, MySQL v: 8.031
+mysql-workbench-community-8.0.31-macos-x86_64.dmg
+
+SendGrid (TWILIO?!) Recovery Code:
+STLVPH1Z5AL47SPBHMCMQWLZ
+
+https://app.sendgrid.com/settings/api_keys
+signin with Google: kra.le... (Paihia ...)
+npm install --save nodemailer nodemailer--transport
+SENDGRID KEY:
+'*********************************'
+MONGODB KEY:
+'**********************************';
+Get in smal flash disk!
+
+the tokens are in:
+app.js
+controllers: auth.js
+
+Hard delete commits:
+git reset --hard 50bba0a
