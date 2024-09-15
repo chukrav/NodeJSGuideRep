@@ -1,0 +1,12 @@
+npm install --save express
+
+npm install --save-dev nodemon
+
+in package.jsin in "scripts":
+    "start": "nodemon app.js"
+and add app.js ... !
+
+npm install --save body-parser
+
+
+    
