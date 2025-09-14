@@ -25,3 +25,19 @@ git reset --hard 50bba0a
 Section_025
 npm install --save express validator
 
+New project:
+
+npm install --save-dev nodemon
+npm install express --save
+npm install body-parser
+
+npm install --save-dev @types/node  <= to autocomplete (highlite) code.
+
+MONGOOSE:
+npm install --save mongoose
+
+SESSIONS&COOIES
+npm install --save express-session
+
+npm start  <- to start nodemon with project !!!
+
