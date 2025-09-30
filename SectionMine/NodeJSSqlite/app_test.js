@@ -76,7 +76,7 @@ const TableStatus = sequelize.define(
   { tableName: "tableStatus", timestamps: false }
 );
 
-Dictionary.hasMany(TableStatus, { as: 'mindex' });
+Dictionary.hasMany(TableStatus, { as: "mindex" });
 
 async function selecDicts() {
   try {
@@ -138,21 +138,38 @@ async function myJoin() {
   try {
     const dict = await Dictionary.findAll({
       attributes: ["id", "word"],
-      include: { model: TableStatus, as: 'mindex', where: { HP1_1_4: { [Op.eq]: 1 } } },
+      include: {
+        model: TableStatus,
+        as: "mindex",
+        where: { HP1_1_4: { [Op.eq]: 1 } },
+      },
     });
-    console.log("Selected dict:",JSON.stringify(dict, null, 2));
+    console.log("Selected dict:", JSON.stringify(dict, null, 2));
   } catch (error) {
     console.error("Error fetching joins:", error);
   } finally {
     await sequelize.close(); // Close the connection when done
   }
-};
+}
+
+async function rawQuery() {
+  try {
+    const qString = "SELECT a.id, a.word,a.translation,a.rating, b.HP1_1_4 FROM dictionary a, tableStatus b WHERE a.id = b.id AND b.HP1_1_4  > 0;";
+    const [results, metadata] = await sequelize.query(qString);
+    console.log(JSON.stringify(results, null, 2));
+  } catch (error) {
+    console.error("Error fetching joins:", error);
+  } finally {
+    await sequelize.close();
+  }
+}
 
 // connectToDatabase();
 // selecDicts();
 // selecDictsNames();
 // selectTableStatus();
-myJoin();
+// myJoin();
+rawQuery();
 
 const app = express();
 const port = 3000;
